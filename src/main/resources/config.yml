@@ -1,0 +1,79 @@
+# WardenAI Configuration File
+# Get your Groq API key from: https://console.groq.com/
+
+# Groq API Configuration
+groq:
+  # Your Groq API key (REQUIRED)
+  # Sign up at https://console.groq.com/ to get a free API key
+  api-key: "YOUR_GROQ_API_KEY_HERE"
+
+  # Model Selection (IMPORTANT: Choose the right model for your needs)
+  # - llama-3.3-70b-versatile (recommended - best quality for complex questions)
+  # - llama-3.1-8b-instant (faster responses, good for simple Q&A)
+  # WARNING: DO NOT use openai/gpt-oss-20b (it's a content moderation model, not an assistant)
+  model: "llama-3.3-70b-versatile"
+
+  # API Parameters
+  max-tokens: 8192
+  temperature: 1.0
+  timeout-seconds: 30
+
+# Rate Limiting & Protection
+limits:
+  # Cooldown time between player requests (in seconds)
+  cooldown-seconds: 10
+
+  # Maximum player question length (characters)
+  max-message-length: 500
+
+  # Minimum player question length (characters)
+  min-message-length: 3
+
+  # Maximum AI response length before truncation (characters)
+  max-response-length: 2000
+
+# Player-Facing Messages (supports Minecraft color codes with &)
+messages:
+  # Prefix for all plugin messages
+  prefix: "&7[&bWardenAI&7]&r"
+
+  # Message shown while AI is thinking
+  thinking: "WardenAI is thinking..."
+
+  # Cooldown message (use {seconds} as placeholder)
+  cooldown: "Please wait {seconds} seconds before asking again."
+
+  # Error Messages
+  error-generic: "Sorry, I encountered an error. Please try again later."
+  error-not-configured: "WardenAI is not configured. Please contact a server administrator."
+  error-rate-limit: "WardenAI is busy. Please wait a moment and try again."
+  error-too-long: "Your question is too long. Please shorten it."
+  error-unavailable: "WardenAI is temporarily unavailable. Please try again later."
+  error-timeout: "WardenAI took too long to respond. Please try again."
+
+  # Token exhaustion message (original requirement from instructions.md)
+  no-tokens: "I'm sorry, but I can no longer help you in the game. The API token credit has been exhausted."
+
+# AI Personality (optional - customize how WardenAI behaves)
+personality:
+  # Enable custom personality/system prompt
+  enabled: true
+
+  # System prompt that defines WardenAI's character and behavior
+  # This is sent with every request to guide the AI's responses
+  system-prompt: |
+    You are WardenAI, a helpful and knowledgeable Minecraft assistant.
+    You help players with game mechanics, crafting recipes, building tips, and general advice.
+    Be friendly, concise, and accurate. Address the player by name when possible.
+    Keep your responses clear and easy to understand.
+
+# Debug Settings (WARNING: May log sensitive player data)
+debug:
+  # Log prompts sent to Groq API (WARNING: includes player questions)
+  log-api-requests: false
+
+  # Log AI responses from Groq
+  log-api-responses: false
+
+  # Always log errors (recommended for troubleshooting)
+  log-errors: true

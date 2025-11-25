@@ -1,0 +1,13 @@
+# WardenAI Knowledge Base
+# This file is optional. The plugin will work without it.
+#
+# Add Minecraft-specific information here to enhance WardenAI's responses:
+# - Server-specific rules and commands
+# - Custom crafting recipes or modifications
+# - Server lore or storyline
+# - Building guidelines
+# - Special features unique to your server
+#
+# The contents of this file will be included in the AI's context when answering questions.
+
+minecraft is a fun game

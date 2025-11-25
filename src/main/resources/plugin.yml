@@ -1,0 +1,25 @@
+name: WardenAI
+version: 1.0.0
+main: com.wardenai.WardenAI
+api-version: 1.21
+description: Minecraft AI assistant plugin powered by Groq LLM
+author: lipokatz-hub
+website: https://github.com/lipokatz-hub/wardenai
+
+commands:
+  wai:
+    description: Ask WardenAI a question about Minecraft
+    usage: /wai <message>
+    aliases: [wardenai]
+    permission: wardenai.use
+
+permissions:
+  wardenai.use:
+    description: Allows players to use the /wai command
+    default: true
+  wardenai.bypass.cooldown:
+    description: Allows bypassing the cooldown timer between requests
+    default: op
+  wardenai.admin:
+    description: Allows access to admin commands (future)
+    default: op

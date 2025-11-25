@@ -1,0 +1,32 @@
+# Maven build directory
+target/
+dependency-reduced-pom.xml
+
+# IDE Files
+.idea/
+.vscode/
+*.iml
+*.ipr
+*.iws
+.project
+.classpath
+.settings/
+*.swp
+*.swo
+*~
+
+# OS Files
+.DS_Store
+Thumbs.db
+
+# Configuration files with API keys (DO NOT COMMIT)
+# Template config.yml is OK, but any config with real API keys should be excluded
+config-local.yml
+*-local.yml
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp
+*.bak
