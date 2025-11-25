@@ -75,7 +75,11 @@ public class WardenAI extends JavaPlugin {
     public void onDisable() {
         getLogger().info("WardenAI shutting down...");
 
-        // Cleanup services
+        // Cleanup services in reverse order of initialization
+        if (groqService != null) {
+            groqService.cleanup();
+        }
+
         if (cooldownManager != null) {
             cooldownManager.cleanup();
         }
