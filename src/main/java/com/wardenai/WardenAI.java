@@ -56,6 +56,7 @@ public class WardenAI extends JavaPlugin {
             int timeout = getTimeoutSeconds();
 
             groqService = new GroqService(this, apiKey, model, maxTokens, temperature, timeout);
+            groqService.setKnowledgeBaseService(knowledgeBaseService);
             getLogger().info("Groq service initialized with model: " + model);
 
             // Phase 5: Register commands (will be implemented in Phase 5)
