@@ -1,5 +1,6 @@
 package com.wardenai;
 
+import com.wardenai.commands.WaiCommand;
 import com.wardenai.services.CooldownManager;
 import com.wardenai.services.GroqService;
 import com.wardenai.services.KnowledgeBaseService;
@@ -59,9 +60,9 @@ public class WardenAI extends JavaPlugin {
             groqService.setKnowledgeBaseService(knowledgeBaseService);
             getLogger().info("Groq service initialized with model: " + model);
 
-            // Phase 5: Register commands (will be implemented in Phase 5)
-            // TODO: Register WaiCommand in Phase 5
-            getLogger().warning("Commands not yet registered (Phase 5)");
+            // Phase 5: Register commands
+            getCommand("wai").setExecutor(new WaiCommand(this));
+            getLogger().info("Commands registered successfully");
 
             getLogger().info("WardenAI enabled successfully!");
 
