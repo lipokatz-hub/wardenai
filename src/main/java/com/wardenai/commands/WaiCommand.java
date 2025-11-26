@@ -2,11 +2,15 @@ package com.wardenai.commands;
 
 import com.wardenai.WardenAI;
 import com.wardenai.services.GroqService;
+import com.wardenai.utils.ResponseChunker;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+
+import java.util.List;
 
 /**
  * Command handler for /wai command.
@@ -143,8 +147,32 @@ public class WaiCommand implements CommandExecutor {
                 // ═══════════════════════════════════════════════════════
 
                 (response) -> {
-                    // Send AI response to player
-                    player.sendMessage(formatMessage(ChatColor.AQUA + "WardenAI" + ChatColor.GRAY + ": " + ChatColor.WHITE + response));
+                    // Check if response needs chunking (default 256 chars per chunk)
+                    int maxChunkLength = 256;
+
+                    if (ResponseChunker.needsChunking(response, maxChunkLength)) {
+                        // Split response into chunks at word boundaries
+                        List<String> chunks = ResponseChunker.chunkMessage(response, maxChunkLength);
+
+                        // Send each chunk with a delay for readability
+                        for (int i = 0; i < chunks.size(); i++) {
+                            final String chunk = chunks.get(i);
+                            final int chunkNumber = i;
+                            final int totalChunks = chunks.size();
+
+                            // Calculate delay: 4 ticks (200ms) per chunk
+                            final long delay = i * 4L;
+
+                            Bukkit.getScheduler().runTaskLater(plugin, () -> {
+                                // Format each chunk with prefix
+                                String prefix = ChatColor.AQUA + "WardenAI" + ChatColor.GRAY + " [" + (chunkNumber + 1) + "/" + totalChunks + "]:";
+                                player.sendMessage(formatMessage(prefix + " " + ChatColor.WHITE + chunk));
+                            }, delay);
+                        }
+                    } else {
+                        // Single message - send immediately
+                        player.sendMessage(formatMessage(ChatColor.AQUA + "WardenAI" + ChatColor.GRAY + ": " + ChatColor.WHITE + response));
+                    }
 
                     // Set cooldown AFTER successful response
                     // This prevents cooldown consumption on errors
